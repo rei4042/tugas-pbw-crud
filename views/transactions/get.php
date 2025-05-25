@@ -1,27 +1,36 @@
-<?php 
-    use App\Database\UserDAO;
+<?php
+use App\Database\TransactionDAO;
 
-    $userDao = new UserDAO();
-    $user = $userDao->get($id);
+$transactionDao = new TransactionDAO();
+$transaction = $transactionDao->get($id);
+
+if (!$transaction) {
+    echo "<h2>Transaksi tidak ditemukan</h2>";
+    echo "<a href='/transactions'>Back to List</a>";
+    exit;
+}
 ?>
-
-<h2>User Detail</h2>
-<a href="/users" >Back to List</a>
+<h2>Transaction Detail</h2>
+<a href="/transactions">Back to List</a>
 <table>
     <tr>
         <th>ID</th>
-        <td><?= $user->getId() ?></td>
+        <td><?= $transaction->getId() ?></td>
     </tr>
     <tr>
-        <th>Name</th>
-        <td><?= $user->getName() ?></td>
+        <th>User ID</th>
+        <td><?= $transaction->getUserId() ?></td>
     </tr>
     <tr>
-        <th>Email</th>
-        <td><?= $user->getEmail() ?></td>
+        <th>Amount</th>
+        <td><?= number_format($transaction->getAmount()) ?></td>
+    </tr>
+    <tr>
+        <th>Type</th>
+        <td><?= ucfirst($transaction->getTransactionType()) ?></td>
     </tr>
     <tr>
         <th>Created At</th>
-        <td><?= $user->getCreatedAt() ?></td>
+        <td><?= $transaction->getCreatedAt() ?></td>
     </tr>
 </table>

@@ -24,4 +24,8 @@
         <th>Created At</th>
         <td><?= $user->getCreatedAt() ?></td>
     </tr>
+    <tr>
+        <th>Balance</th>
+        <td><?= number_format($user->getBalance()) ?></td>
+</tr>
 </table>

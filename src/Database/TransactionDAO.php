@@ -30,8 +30,7 @@ class TransactionDAO extends Connection {
         $userId = $transaction->getUserId();
         $type = $transaction->getTransactionType();
         $createdAt = date("Y-m-d H:i:s");
-    
-        // Update balance user
+
         $currentBalance = self::query("SELECT balance FROM users WHERE id = ?", [$userId])[0]['balance'];
     
         if ($type === 'deposit') {
@@ -48,5 +47,21 @@ class TransactionDAO extends Connection {
         $params = [$userId, $amount, $type, $createdAt];
         return self::query($sql, $params);
     }
+    public function get(int $id): ?Transaction {
+        $sql = "SELECT * FROM transactions WHERE id = ?";
+        $params = [$id];
+        $data = self::query($sql, $params);
     
+        if (count($data) > 0) {
+            return new Transaction(
+                $data[0]['id'],
+                $data[0]['user_id'],
+                $data[0]['amount'],
+                $data[0]['transaction_type'],
+                $data[0]['created_at']
+            );
+        }
+    
+        return null;
+    }
 }

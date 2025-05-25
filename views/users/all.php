@@ -6,6 +6,8 @@
 ?>
 
 <h2>User List</h2>
+<a href="/transactions">Lihat transaction list</a>
+<p>
 <a href="/users/create">Create New User</a>
 <table style="width:100%">
     <thead>
